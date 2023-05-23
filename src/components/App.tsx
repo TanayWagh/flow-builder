@@ -4,27 +4,22 @@
  */
 
 import React, { useCallback } from 'react';
+import { Layout, Row, Col } from 'antd';
 import ReactFlow, {
-	MiniMap,
-	Controls,
-	Background,
 	useNodesState,
 	useEdgesState,
 	addEdge,
-	BackgroundVariant,
 	NodeResizer,
 	NodeToolbar,
-	Panel,
+	Panel as FlowPanel,
 	Connection,
 } from 'reactflow';
 
-import TextUpdater from '../TextUpdater';
 import '../styles/style.css';
 import 'reactflow/dist/style.css';
-
-const rfStyle = {
-	backgroundColor: '#B8CEFF',
-};
+import PageHeader from './PageHeader';
+import Panel from './Panel';
+import TextUpdater from '../TextUpdater';
 
 const initialNodes = [
 	{
@@ -63,24 +58,28 @@ const App: React.FC = () => {
 	const onConnect = useCallback((params: Connection) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
 
 	return (
-		<div style={{ width: '100vw', height: '100vh' }}>
-			<ReactFlow
-				nodes={nodes}
-				edges={edges}
-				style={rfStyle}
-				nodeTypes={nodeTypes}
-				onNodesChange={onNodesChange}
-				onEdgesChange={onEdgesChange}
-				onConnect={onConnect}
-			>
-				<Controls />
-				<MiniMap />
-				<Background variant={BackgroundVariant.Dots} gap={12} size={1} />
-				<Panel children={<>Haha</>} position='bottom-right' />
-				<NodeToolbar />
-				<NodeResizer />
-			</ReactFlow>
-		</div>
+		<Layout>
+			<PageHeader />
+			<Row>
+				<Col span={16}>
+					<ReactFlow
+						nodes={nodes}
+						edges={edges}
+						nodeTypes={nodeTypes}
+						onNodesChange={onNodesChange}
+						onEdgesChange={onEdgesChange}
+						onConnect={onConnect}
+					>
+						<FlowPanel children={<>Haha</>} position='bottom-right' />
+						<NodeToolbar />
+						<NodeResizer />
+					</ReactFlow>
+				</Col>
+				<Col span={8}>
+					<Panel isNodeSelected={false} />
+				</Col>
+			</Row>
+		</Layout>
 	);
 };
 
