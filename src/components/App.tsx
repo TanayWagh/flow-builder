@@ -18,8 +18,8 @@ import ReactFlow, {
   Connection,
 } from "reactflow";
 
-import TextUpdater from "./TextUpdater";
-import "./styles/style.css";
+import TextUpdater from "../TextUpdater";
+import "../styles/style.css";
 import "reactflow/dist/style.css";
 
 const rfStyle = {
