@@ -59,7 +59,7 @@ const App: React.FC = () => {
 			setEdges((eds) => {
 				if (_.find(eds, { source: params.source })) {
 					message.error('Only single link can be created from source handle');
-					return edges;
+					return eds;
 				} else {
 					return addEdge(params, eds);
 				}
