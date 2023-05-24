@@ -111,7 +111,7 @@ const App: React.FC = () => {
 		setNodes(newNodes);
 	};
 
-	const downloadBlog = () => {
+	const downloadBlob = () => {
 		const stringToDownLoad = JSON.stringify({
 			nodes,
 			edges,
@@ -124,8 +124,6 @@ const App: React.FC = () => {
 	};
 
 	const handleSaveFlow = () => {
-		console.log(nodes);
-		console.log(edges);
 		if (_.size(nodes) > 1) {
 			const obj = {};
 			_.forEach(edges, ({ source, target }) => {
@@ -135,10 +133,10 @@ const App: React.FC = () => {
 			if (_.some(nodes, ({ id }) => !_.get(obj, id))) {
 				message.error('Unable to save the Flow. One or more nodes have empty target handle');
 			} else {
-				downloadBlog();
+				downloadBlob();
 			}
 		} else {
-			downloadBlog();
+			downloadBlob();
 		}
 	};
 

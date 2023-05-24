@@ -23,7 +23,7 @@ const NodesPanel: React.FC<INodePanelProps> = (props) => {
 	};
 
 	return (
-		<>
+		<div className='nodes-wrapper'>
 			{_.map(props.nodes, ({ Icon, name }, key) => (
 				<div key={key} draggable='true' className='custom-node' onDragEnd={(e) => handleMouseUp(e, key)}>
 					<div>
@@ -32,7 +32,7 @@ const NodesPanel: React.FC<INodePanelProps> = (props) => {
 					</div>
 				</div>
 			))}
-		</>
+		</div>
 	);
 };
 

@@ -23,8 +23,16 @@
 	background-color: white;
 	width: 100%;
 	padding: 10px;
+
 	height: 100%;
 	border-left: 1px solid #e4e4e4;
+}
+
+.nodes-wrapper {
+	gap: 8px;
+	display: flex;
+	flex-wrap: wrap;
+	height: fit-content;
 }
 
 .ant-layout {
