@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-const WhatsAppOutlined: React.FC<any> = (props) => {
+const Icon: React.FC<any> = (props) => {
 	const { className, ...restProps } = props;
 
 	return (
@@ -87,4 +87,4 @@ const WhatsAppOutlined: React.FC<any> = (props) => {
 	);
 };
 
-export default WhatsAppOutlined;
+export default Icon;

@@ -6,15 +6,11 @@
 import React from 'react';
 import { ReactFlowProvider } from 'reactflow';
 
-interface IProps {
-	dom: HTMLElement;
-}
-
-const withProviders = (Component: React.JSXElementConstructor<IProps>): React.FC<IProps> => {
-	const Providers: React.FC<IProps> = (props) => {
+const withProviders = (Component: React.FC): React.FC => {
+	const Providers: React.FC = () => {
 		return (
 			<ReactFlowProvider>
-				<Component {...props} />
+				<Component />
 			</ReactFlowProvider>
 		);
 	};
