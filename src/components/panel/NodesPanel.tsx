@@ -18,8 +18,11 @@ export interface INodePanelProps {
 
 const NodesPanel: React.FC<INodePanelProps> = (props) => {
 	const handleMouseUp = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, key: string) => {
-		props.onNodeAdd(e.clientX, e.clientY, key);
-		console.log(e);
+		const x = e.clientX;
+		const y = e.clientY;
+		if (x < 1450) {
+			props.onNodeAdd(x, y, key);
+		}
 	};
 
 	return (

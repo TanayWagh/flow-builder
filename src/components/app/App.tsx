@@ -15,7 +15,6 @@ import ReactFlow, {
 	NodeToolbar,
 	Node,
 	Edge,
-	Panel as FlowPanel,
 	Connection,
 	NodeChange,
 	EdgeChange,
@@ -162,11 +161,7 @@ const App: React.FC = () => {
 						onNodesChange={handleNodesChange}
 						onEdgesChange={handleEdgesChange}
 						onConnect={handleConnect}
-					>
-						<FlowPanel children={<>Haha</>} position='bottom-right' />
-						<NodeToolbar />
-						<NodeResizer />
-					</ReactFlow>
+					/>
 				</Col>
 				<Col span={6}>
 					<Panel
