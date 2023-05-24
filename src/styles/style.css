@@ -60,11 +60,16 @@
 	margin-bottom: 5px;
 }
 
+[draggable='true'] {
+	cursor: move;
+}
+
 .custom-node {
 	width: 120px;
 	color: #5b47a5;
 	height: 80px;
 	display: flex;
+	overflow: scroll;
 	border: 1px solid #5b47a5;
 	border-radius: 5px;
 	justify-content: center;

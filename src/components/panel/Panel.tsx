@@ -13,10 +13,11 @@ import SettingsPanel from './SettingsPanel';
 interface IProps extends INodePanelProps {
 	selectedNode?: Node;
 	onChange: (modifiedNode: Node) => void;
+	onNodeAdd: (x: number, y: number, nodeType: string) => void;
 }
 
 const Panel: React.FC<IProps> = (props) => {
-	const { selectedNode, nodes, onChange } = props;
+	const { selectedNode, nodes, onNodeAdd, onChange } = props;
 
 	const handleChange = (value: string) => {
 		if (selectedNode) {
@@ -29,7 +30,7 @@ const Panel: React.FC<IProps> = (props) => {
 			{selectedNode ? (
 				<SettingsPanel value={_.get(selectedNode, ['data', 'value'])} onChange={handleChange} />
 			) : (
-				<NodesPanel nodes={nodes} />
+				<NodesPanel nodes={nodes} onNodeAdd={onNodeAdd} />
 			)}
 		</div>
 	);

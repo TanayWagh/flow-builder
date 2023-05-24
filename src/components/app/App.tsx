@@ -19,11 +19,13 @@ import ReactFlow, {
 	Connection,
 	NodeChange,
 	EdgeChange,
+	useReactFlow,
 } from 'reactflow';
 
 import MessageNode from '../nodes/MessageNode';
 import PageHeader from './PageHeader';
 import Panel from '../panel/Panel';
+import withProviders from './withProviders';
 
 import '../../styles/style.css';
 import 'reactflow/dist/style.css';
@@ -33,17 +35,17 @@ const initialNodes = [
 		id: 'node-1',
 		position: { x: 50, y: 100 },
 		data: { value: 'Text message 1' },
-		type: 'messageNode',
+		type: 'message',
 	},
 	{
 		id: 'node-2',
-		type: 'messageNode',
+		type: 'message',
 		position: { x: 50, y: 400 },
 		data: { value: 'Text message 1' },
 	},
 	{
 		id: 'node-3',
-		type: 'messageNode',
+		type: 'message',
 		position: { x: 500, y: 200 },
 		data: { value: 'Text message 1' },
 	},
@@ -58,11 +60,12 @@ const allNodes = {
 	message: { name: 'Message', Icon: MessageOutlined },
 };
 
-const nodeTypes = { messageNode: MessageNode };
+const nodeTypes = { message: MessageNode };
 
 const App: React.FC = () => {
 	const [nodes, setNodes] = useState<Node[]>(initialNodes);
 	const [edges, setEdges] = useState<Edge[]>(initialEdges);
+	const { project } = useReactFlow();
 
 	const selectedNode = useMemo(() => _.find(nodes, { selected: true }), [nodes]);
 
@@ -117,6 +120,7 @@ const App: React.FC = () => {
 		a.href = URL.createObjectURL(new Blob([stringToDownLoad], { type: 'text' }));
 		a.download = 'Saved FLow';
 		a.click();
+		message.success('Successfully saved');
 	};
 
 	const handleSaveFlow = () => {
@@ -129,13 +133,23 @@ const App: React.FC = () => {
 				_.setWith(obj, target, true, Object);
 			});
 			if (_.some(nodes, ({ id }) => !_.get(obj, id))) {
-				message.info('Unable to save the Flow');
+				message.error('Unable to save the Flow. One or more nodes have empty target handle');
 			} else {
 				downloadBlog();
 			}
 		} else {
 			downloadBlog();
 		}
+	};
+
+	const handleAddNode = (x: number, y: number, nodeType: string) => {
+		const newNode = {
+			type: nodeType,
+			id: Date.now().toString(),
+			position: project({ x: x - 50, y: y - 80 }),
+			data: { value: 'New Text message' },
+		};
+		setNodes((nds) => nds.concat(newNode));
 	};
 
 	return (
@@ -157,11 +171,16 @@ const App: React.FC = () => {
 					</ReactFlow>
 				</Col>
 				<Col span={6}>
-					<Panel nodes={allNodes} selectedNode={selectedNode} onChange={handleSelectedNodeChange} />
+					<Panel
+						nodes={allNodes}
+						selectedNode={selectedNode}
+						onChange={handleSelectedNodeChange}
+						onNodeAdd={handleAddNode}
+					/>
 				</Col>
 			</Row>
 		</Layout>
 	);
 };
 
-export default App;
+export default withProviders(App);
