@@ -3,8 +3,9 @@
  * @description
  */
 
-import React, { useCallback, useState } from 'react';
-import { Layout, Row, Col } from 'antd';
+import React, { useCallback, useMemo, useState } from 'react';
+import _ from 'lodash';
+import { Layout, Row, Col, message } from 'antd';
 import { MessageOutlined } from '@ant-design/icons';
 import ReactFlow, {
 	applyEdgeChanges,
@@ -30,29 +31,27 @@ import 'reactflow/dist/style.css';
 const initialNodes = [
 	{
 		id: 'node-1',
-		position: { x: 0, y: 0 },
-		data: { value: 123 },
+		position: { x: 50, y: 100 },
+		data: { value: 'Text message 1' },
 		type: 'messageNode',
 	},
 	{
 		id: 'node-2',
 		type: 'messageNode',
-		// targetPosition: 'top' as const,
-		position: { x: 0, y: 200 },
-		data: { label: 'node 2' },
+		position: { x: 50, y: 400 },
+		data: { value: 'Text message 1' },
 	},
 	{
 		id: 'node-3',
 		type: 'messageNode',
-		// targetPosition: 'top' as const,
-		position: { x: 200, y: 200 },
-		data: { label: 'node 3' },
+		position: { x: 500, y: 200 },
+		data: { value: 'Text message 1' },
 	},
 ];
 
 const initialEdges = [
-	{ id: 'edge-1', source: 'node-1', target: 'node-2', sourceHandle: 'a' },
-	{ id: 'edge-2', source: 'node-1', target: 'node-3', sourceHandle: 'b' },
+	{ id: 'edge-1', source: 'node-1', target: 'node-3', sourceHandle: 'a' },
+	{ id: 'edge-2', source: 'node-2', target: 'node-3', sourceHandle: 'b' },
 ];
 
 const allNodes = {
@@ -64,7 +63,8 @@ const nodeTypes = { messageNode: MessageNode };
 const App: React.FC = () => {
 	const [nodes, setNodes] = useState<Node[]>(initialNodes);
 	const [edges, setEdges] = useState<Edge[]>(initialEdges);
-	const [value, setValue] = useState('');
+
+	const selectedNode = useMemo(() => _.find(nodes, { selected: true }), [nodes]);
 
 	const handleNodesChange = useCallback(
 		(changes: NodeChange[]) => {
@@ -86,15 +86,61 @@ const App: React.FC = () => {
 	const handleConnect = useCallback(
 		(params: Connection) => {
 			setEdges((eds) => {
-				return addEdge(params, eds);
+				if (_.find(eds, { source: params.source })) {
+					message.error('Only single link can be created from source handle');
+					return edges;
+				} else {
+					return addEdge(params, eds);
+				}
 			});
 		},
 		[setEdges],
 	);
 
+	const handleSelectedNodeChange = (modifiedNode: Node) => {
+		const newNodes = _.map(nodes, (nd) => {
+			if (nd.id === selectedNode?.id) {
+				return modifiedNode;
+			} else {
+				return nd;
+			}
+		});
+		setNodes(newNodes);
+	};
+
+	const downloadBlog = () => {
+		const stringToDownLoad = JSON.stringify({
+			nodes,
+			edges,
+		});
+		const a = document.createElement('a');
+		a.href = URL.createObjectURL(new Blob([stringToDownLoad], { type: 'text' }));
+		a.download = 'Saved FLow';
+		a.click();
+	};
+
+	const handleSaveFlow = () => {
+		console.log(nodes);
+		console.log(edges);
+		if (_.size(nodes) > 1) {
+			const obj = {};
+			_.forEach(edges, ({ source, target }) => {
+				_.setWith(obj, source, true, Object);
+				_.setWith(obj, target, true, Object);
+			});
+			if (_.some(nodes, ({ id }) => !_.get(obj, id))) {
+				message.info('Unable to save the Flow');
+			} else {
+				downloadBlog();
+			}
+		} else {
+			downloadBlog();
+		}
+	};
+
 	return (
 		<Layout>
-			<PageHeader />
+			<PageHeader onClick={handleSaveFlow} />
 			<Row>
 				<Col span={18}>
 					<ReactFlow
@@ -111,7 +157,7 @@ const App: React.FC = () => {
 					</ReactFlow>
 				</Col>
 				<Col span={6}>
-					<Panel nodes={allNodes} isNodeSelected={false} value={value} onChange={setValue} />
+					<Panel nodes={allNodes} selectedNode={selectedNode} onChange={handleSelectedNodeChange} />
 				</Col>
 			</Row>
 		</Layout>

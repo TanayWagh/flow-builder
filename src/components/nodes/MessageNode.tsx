@@ -4,14 +4,15 @@
  */
 
 import React from 'react';
+import _ from 'lodash';
 import { Space, Tooltip } from 'antd';
-import { Handle, Position } from 'reactflow';
+import { Handle, Position, NodeProps } from 'reactflow';
 import { MessageOutlined } from '@ant-design/icons';
 
 import WhatsAppOutlined from '../icons/WhatsappFilled';
 
-const MessageNode: React.FC<any> = ({ isConnectable }) => {
-	const text = 'text message 1 heelo this is supposed to be a very simple message but long';
+const MessageNode: React.FC<NodeProps> = (props) => {
+	const { isConnectable, data } = props;
 
 	return (
 		<div className='message-node'>
@@ -24,8 +25,8 @@ const MessageNode: React.FC<any> = ({ isConnectable }) => {
 				</Space>
 				<WhatsAppOutlined />
 			</div>
-			<Tooltip placement='top' title={text}>
-				<div className='content'>{text}</div>
+			<Tooltip placement='top' title={_.get(data, 'value', '')}>
+				<div className='content'>{_.get(data, 'value', '')}</div>
 			</Tooltip>
 
 			<Handle type='source' position={Position.Right} id='a' isConnectable={isConnectable} />

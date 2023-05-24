@@ -4,16 +4,12 @@
  */
 
 import React from 'react';
-import { Button } from 'antd';
+import { Button, ButtonProps } from 'antd';
 
-const PageHeader: React.FC = () => {
-	const handleSave = () => {
-		return;
-	};
-
+const PageHeader: React.FC<ButtonProps> = (props) => {
 	return (
 		<div className='header'>
-			<Button onClick={handleSave}>Save Changes</Button>
+			<Button {...props}>Save Changes</Button>
 		</div>
 	);
 };

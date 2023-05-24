@@ -4,22 +4,33 @@
  */
 
 import React from 'react';
+import _ from 'lodash';
+import { Node } from 'reactflow';
 
 import NodesPanel, { INodePanelProps } from './NodesPanel';
 import SettingsPanel from './SettingsPanel';
 
 interface IProps extends INodePanelProps {
-	isNodeSelected: boolean;
-	value: string;
-	onChange: (value: string) => void;
+	selectedNode?: Node;
+	onChange: (modifiedNode: Node) => void;
 }
 
 const Panel: React.FC<IProps> = (props) => {
-	const { isNodeSelected, nodes, ...restProps } = props;
+	const { selectedNode, nodes, onChange } = props;
+
+	const handleChange = (value: string) => {
+		if (selectedNode) {
+			onChange({ ...selectedNode, data: { ...selectedNode.data, value } });
+		}
+	};
 
 	return (
 		<div className='panel'>
-			{props.isNodeSelected ? <SettingsPanel {...restProps} /> : <NodesPanel nodes={nodes} />}
+			{selectedNode ? (
+				<SettingsPanel value={_.get(selectedNode, ['data', 'value'])} onChange={handleChange} />
+			) : (
+				<NodesPanel nodes={nodes} />
+			)}
 		</div>
 	);
 };

@@ -48,7 +48,7 @@ const NodesPanel: React.FC<INodePanelProps> = (props) => {
 			{_.map(props.nodes, ({ Icon, name }, key) => (
 				<div
 					key={key}
-					className='node'
+					className='custom-node'
 					//  onMouseDown={handleMouseDown}
 				>
 					<div>
