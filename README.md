@@ -1,6 +1,6 @@
 # React Flow Assignment
 
-I am looking for Frontend Developer Opportunity at BiteSpeed. This project is my attempt at BiteSpeed Frontend Task:
+I am looking for a Frontend Developer Opportunity at BiteSpeed. This project is my attempt at BiteSpeed Frontend Task:
 Chatbot flow builder
 
 ## Demo
