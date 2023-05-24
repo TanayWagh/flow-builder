@@ -6,13 +6,10 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import _ from 'lodash';
 import { Layout, Row, Col, message } from 'antd';
-import { MessageOutlined } from '@ant-design/icons';
 import ReactFlow, {
 	applyEdgeChanges,
 	applyNodeChanges,
 	addEdge,
-	NodeResizer,
-	NodeToolbar,
 	Node,
 	Edge,
 	Connection,
@@ -21,45 +18,15 @@ import ReactFlow, {
 	useReactFlow,
 } from 'reactflow';
 
-import MessageNode from '../nodes/MessageNode';
 import PageHeader from './PageHeader';
 import Panel from '../panel/Panel';
 import withProviders from './withProviders';
+import { initialNodes, initialEdges, nodeTypes } from '../../constants/index';
 
 import '../../styles/style.css';
 import 'reactflow/dist/style.css';
 
-const initialNodes = [
-	{
-		id: 'node-1',
-		position: { x: 50, y: 100 },
-		data: { value: 'Text message 1' },
-		type: 'message',
-	},
-	{
-		id: 'node-2',
-		type: 'message',
-		position: { x: 50, y: 400 },
-		data: { value: 'Text message 1' },
-	},
-	{
-		id: 'node-3',
-		type: 'message',
-		position: { x: 500, y: 200 },
-		data: { value: 'Text message 1' },
-	},
-];
-
-const initialEdges = [
-	{ id: 'edge-1', source: 'node-1', target: 'node-3', sourceHandle: 'a' },
-	{ id: 'edge-2', source: 'node-2', target: 'node-3', sourceHandle: 'b' },
-];
-
-const allNodes = {
-	message: { name: 'Message', Icon: MessageOutlined },
-};
-
-const nodeTypes = { message: MessageNode };
+const reactFlowNodeTypes = _.mapValues(nodeTypes, (val) => val.node);
 
 const App: React.FC = () => {
 	const [nodes, setNodes] = useState<Node[]>(initialNodes);
@@ -157,7 +124,7 @@ const App: React.FC = () => {
 					<ReactFlow
 						nodes={nodes}
 						edges={edges}
-						nodeTypes={nodeTypes}
+						nodeTypes={reactFlowNodeTypes}
 						onNodesChange={handleNodesChange}
 						onEdgesChange={handleEdgesChange}
 						onConnect={handleConnect}
@@ -165,7 +132,7 @@ const App: React.FC = () => {
 				</Col>
 				<Col span={6}>
 					<Panel
-						nodes={allNodes}
+						nodes={nodeTypes}
 						selectedNode={selectedNode}
 						onChange={handleSelectedNodeChange}
 						onNodeAdd={handleAddNode}
