@@ -20,7 +20,7 @@ const NodesPanel: React.FC<INodePanelProps> = (props) => {
 	const handleMouseUp = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, key: string) => {
 		const x = e.clientX;
 		const y = e.clientY;
-		if (x < 1450) {
+		if (x < (window.innerWidth * 18) / 24) {
 			props.onNodeAdd(x, y, key);
 		}
 	};
