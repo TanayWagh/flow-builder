@@ -1,6 +1,6 @@
 /**
  * @author Tanay Wagh <tanay.wagh@314ecorp.com>
- * @description Audio Player
+ * @description Audio Player to play the recorded audio. Sub component of voice message node
  */
 
 import React, { useMemo, useState, useRef, useEffect } from 'react';

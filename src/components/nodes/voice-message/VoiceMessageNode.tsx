@@ -1,6 +1,6 @@
 /**
  * @author Tanay Wagh <tanay.wagh@314ecorp.com>
- * @description Voice Message Node
+ * @description Custom Node to send voice message
  */
 
 import React from 'react';

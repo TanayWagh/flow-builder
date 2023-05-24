@@ -1,6 +1,6 @@
 /**
  * @author Tanay Wagh <tanay.wagh@314ecorp.com>
- * @description
+ * @description Root component rendering react flow layout and nodes panel
  */
 
 import React, { useCallback, useMemo, useState } from 'react';

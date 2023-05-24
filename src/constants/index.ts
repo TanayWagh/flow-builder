@@ -39,4 +39,12 @@ const nodeTypes = {
 	voice: { name: 'Voice', Icon: MessageOutlined, node: VoiceMessageNode, defaultVal: null },
 };
 
+// This code defines an object of different node types.
+// Currently we are supporting two type of nodes 1) Message 2) Voice
+// Each node type has the following properties:
+//   name: The name of the node type.
+//   Icon: The icon for the node type.
+//   node: React functional component for node.
+//   defaultVal: The default value for the node type.
+
 export { initialEdges, initialNodes, nodeTypes };

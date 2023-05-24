@@ -1,6 +1,6 @@
 /**
  * @author Tanay Wagh <tanay.wagh@314ecorp.com>
- * @description Voice recorder Node
+ * @description Voice recorder to record the user's voice
  */
 
 import React, { useEffect, useState } from 'react';

@@ -1,6 +1,6 @@
 /**
  * @author Tanay Wagh <tanay.wagh@314ecorp.com>
- * @description
+ * @description Entry point of appplication
  */
 
 import React from 'react';

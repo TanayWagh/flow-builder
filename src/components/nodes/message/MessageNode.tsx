@@ -1,6 +1,6 @@
 /**
  * @author Tanay Wagh <tanay.wagh@314ecorp.com>
- * @description MessageNode
+ * @description Custom node to send text message
  */
 
 import React from 'react';
@@ -27,7 +27,6 @@ const MessageNode: React.FC<NodeProps> = (props) => {
 			<Tooltip placement='top' title={_.get(data, 'value', '')}>
 				<div className='content'>{_.get(data, 'value', '')}</div>
 			</Tooltip>
-
 			<Handle type='source' position={Position.Right} id='a' isConnectable={isConnectable} />
 		</div>
 	);

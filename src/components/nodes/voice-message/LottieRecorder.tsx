@@ -1,6 +1,6 @@
 /**
  * @author Tanay Wagh <tanay.wagh@314ecorp.com>
- * @description Lottie Recorder
+ * @description Lottie recorder. Sub component of audio player
  */
 
 import React, { CSSProperties } from 'react';
