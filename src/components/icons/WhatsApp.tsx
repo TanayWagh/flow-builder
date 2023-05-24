@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-const Icon: React.FC<any> = (props) => {
+const WhatsApp: React.FC<any> = (props) => {
 	const { className, ...restProps } = props;
 
 	return (
@@ -87,4 +87,4 @@ const Icon: React.FC<any> = (props) => {
 	);
 };
 
-export default Icon;
+export default WhatsApp;

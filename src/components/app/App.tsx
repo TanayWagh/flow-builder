@@ -33,7 +33,9 @@ const App: React.FC = () => {
 	const [edges, setEdges] = useState<Edge[]>(initialEdges);
 	const { project } = useReactFlow();
 
-	const selectedNode = useMemo(() => _.find(nodes, { selected: true }), [nodes]);
+	const selectedNode = useMemo(() => {
+		return _.find(nodes, { selected: true });
+	}, [nodes]);
 
 	const handleNodesChange = useCallback(
 		(changes: NodeChange[]) => {
@@ -106,12 +108,12 @@ const App: React.FC = () => {
 		}
 	};
 
-	const handleAddNode = (x: number, y: number, nodeType: string) => {
+	const handleAddNode = (x: number, y: number, nodeType: string, defaultVal: string | null) => {
 		const newNode = {
 			type: nodeType,
 			id: Date.now().toString(),
 			position: project({ x: x - 50, y: y - 80 }),
-			data: { value: 'New Text message' },
+			data: { value: defaultVal },
 		};
 		setNodes((nds) => nds.concat(newNode));
 	};

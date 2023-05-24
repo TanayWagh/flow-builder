@@ -13,13 +13,13 @@ import SettingsPanel from './SettingsPanel';
 interface IProps extends INodePanelProps {
 	selectedNode?: Node;
 	onChange: (modifiedNode: Node) => void;
-	onNodeAdd: (x: number, y: number, nodeType: string) => void;
+	onNodeAdd: (x: number, y: number, nodeType: string, defaultVal: string | null) => void;
 }
 
 const Panel: React.FC<IProps> = (props) => {
 	const { selectedNode, nodes, onNodeAdd, onChange } = props;
 
-	const handleChange = (value: string) => {
+	const handleChange = (value: string | Blob) => {
 		if (selectedNode) {
 			onChange({ ...selectedNode, data: { ...selectedNode.data, value } });
 		}
@@ -28,7 +28,11 @@ const Panel: React.FC<IProps> = (props) => {
 	return (
 		<div className='panel'>
 			{selectedNode ? (
-				<SettingsPanel value={_.get(selectedNode, ['data', 'value'])} onChange={handleChange} />
+				<SettingsPanel
+					type={selectedNode.type}
+					value={_.get(selectedNode, ['data', 'value'])}
+					onChange={handleChange}
+				/>
 			) : (
 				<NodesPanel nodes={nodes} onNodeAdd={onNodeAdd} />
 			)}

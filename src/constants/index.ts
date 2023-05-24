@@ -5,7 +5,8 @@
 
 import { MessageOutlined } from '@ant-design/icons';
 
-import MessageNode from '../components/nodes/MessageNode';
+import MessageNode from '../components/nodes/message/MessageNode';
+import VoiceMessageNode from '../components/nodes/voice-message/VoiceMessageNode';
 
 const initialNodes = [
 	{
@@ -34,8 +35,8 @@ const initialEdges = [
 ];
 
 const nodeTypes = {
-	message: { name: 'Message', Icon: MessageOutlined, node: MessageNode },
-	voice: { name: 'Voice', Icon: MessageOutlined, node: MessageNode },
+	message: { name: 'Message', Icon: MessageOutlined, node: MessageNode, defaultVal: 'New Message Node' },
+	voice: { name: 'Voice', Icon: MessageOutlined, node: VoiceMessageNode, defaultVal: null },
 };
 
 export { initialEdges, initialNodes, nodeTypes };

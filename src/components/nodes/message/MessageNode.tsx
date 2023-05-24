@@ -9,7 +9,7 @@ import { Space, Tooltip } from 'antd';
 import { Handle, Position, NodeProps } from 'reactflow';
 import { MessageOutlined } from '@ant-design/icons';
 
-import Icon from '../icons/Icon';
+import WhatsApp from '../../icons/WhatsApp';
 
 const MessageNode: React.FC<NodeProps> = (props) => {
 	const { isConnectable, data } = props;
@@ -17,13 +17,12 @@ const MessageNode: React.FC<NodeProps> = (props) => {
 	return (
 		<div className='message-node'>
 			<Handle type='target' position={Position.Left} isConnectable={isConnectable} />
-
 			<div className='node-header'>
 				<Space>
-					<MessageOutlined rev={undefined} />
+					<MessageOutlined />
 					<div>Send Message</div>
 				</Space>
-				<Icon />
+				<WhatsApp />
 			</div>
 			<Tooltip placement='top' title={_.get(data, 'value', '')}>
 				<div className='content'>{_.get(data, 'value', '')}</div>
